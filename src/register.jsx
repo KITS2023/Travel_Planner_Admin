@@ -96,7 +96,7 @@ export const RegisterForm = () => {
                 }}
                 scrollToFirstError
             >
-                <Divider><h1 style={{ textAlign: 'center', marginBottom: "30px" }}>Registration Form</h1></Divider>
+                <Divider><h1 style={{ textAlign: 'center', marginBottom: "30px" }}>CREATE ACCOUNT</h1></Divider>
 
                 <Form.Item
                     name="username"
@@ -200,7 +200,7 @@ export const RegisterForm = () => {
 
                 <Form.Item {...tailFormItemLayout}>
                     <Button type="primary" htmlType="submit">
-                        Register
+                        Sign Up
                     </Button>
                 </Form.Item>
             </Form>
