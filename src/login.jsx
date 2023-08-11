@@ -1,11 +1,11 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input, Divider } from 'antd';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Checkbox, Form, Input } from "antd";
 
 export const LoginForm = () => {
   const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+    console.log("Received values of form: ", values);
   };
 
   return (
@@ -13,33 +13,42 @@ export const LoginForm = () => {
       name="normal_login"
       className="login-form"
       style={{
-        maxWidth: "300px", margin: "200px auto", height: "100%", display: "flex", padding: "20px",
+        maxWidth: "300px",
+        margin: "200px auto",
+        height: "100%",
+        display: "flex",
+        padding: "20px",
         justifyContent: "center",
-        flexDirection: "column"
+        flexDirection: "column",
       }}
       initialValues={{
         remember: true,
       }}
       onFinish={onFinish}
     >
-      <Divider><h1>User Login</h1></Divider>
+      <Form.Item style={{textAlign: "center"}}>
+        <h1>USER LOGIN</h1>
+      </Form.Item>
       <Form.Item
         name="username"
         rules={[
           {
             required: true,
-            message: 'Please input your Username!',
+            message: "Please input your Username!",
           },
         ]}
       >
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+        <Input
+          prefix={<UserOutlined className="site-form-item-icon" />}
+          placeholder="Username"
+        />
       </Form.Item>
       <Form.Item
         name="password"
         rules={[
           {
             required: true,
-            message: 'Please input your Password!',
+            message: "Please input your Password!",
           },
         ]}
       >
@@ -60,10 +69,18 @@ export const LoginForm = () => {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: "100%" }}>
-          Log in
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="login-form-button"
+          style={{ width: "100%" }}
+        >
+          Login
         </Button>
-        Or <Link to="/register">register now!</Link>      </Form.Item>
+      </Form.Item>
+      <Form.Item style={{ textAlign: "center" }}>
+        Don't have an account? <Link to="/register">Sign up</Link> now!
+      </Form.Item>
     </Form>
   );
 };
