@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Layout, Menu, Button } from "antd";
-import { Icon } from "@iconify/react";
+// import { Icon } from "@iconify/react";
 const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
@@ -27,11 +27,11 @@ function App() {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider>
-        <Header></Header>
-        <Content></Content>
+        <Header style={{ color: "white" }}>Travel Planner</Header>
+        <Menu items={menuItems} theme="dark"></Menu>
       </Sider>
       <Layout>
-        <Header></Header>
+        <Header style={{ color: "white" }}>Admin/Dashboard</Header>
         <Content style={{ margin: "24px 16px 0" }}>
           <div className="site-layout-background" style={{ padding: 24 }}>
             <h1>Hello World!</h1>
