@@ -1,19 +1,44 @@
 // App.jsx
-import React from 'react';
-import { Layout } from 'antd';
-
-const { Content } = Layout;
+import React from "react";
+import { Link } from "react-router-dom";
+import { Layout, Menu, Button } from "antd";
+import { Icon } from "@iconify/react";
+const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
+  const menuItems = [
+    {
+      label: <Link to="/item1">Item 1</Link>,
+      key: "/item1",
+      // icon: <Icon icon="mdi:human-hello" width="20" height="20" />,
+    },
+    {
+      label: <Link to="/item2">Item 2</Link>,
+      key: "/item2",
+      // icon: <Icon icon="ri:currency-fill" width="20" height="20" />,
+    },
+    {
+      label: <Link to="/item 3">Item 3</Link>,
+      key: "/item 3",
+      // icon: <Icon icon="mdi:calculator" width="20" height="20" />,
+    },
+  ];
+
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider>
+        <Header></Header>
+        <Content></Content>
+      </Sider>
       <Layout>
-        <Content style={{ margin: '24px 16px 0' }}>
+        <Header></Header>
+        <Content style={{ margin: "24px 16px 0" }}>
           <div className="site-layout-background" style={{ padding: 24 }}>
             <h1>Hello World!</h1>
             This is admin homepage.
           </div>
         </Content>
+        <Footer></Footer>
       </Layout>
     </Layout>
   );
