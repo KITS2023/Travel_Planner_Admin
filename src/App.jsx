@@ -11,17 +11,17 @@ function App() {
     {
       label: <Link to="/item1">Item 1</Link>,
       key: "/item1",
-      // icon: <Icon icon="mdi:human-hello" width="20" height="20" />,
+      icon: <Icon icon="mdi:human-hello" width="20" height="20" />,
     },
     {
       label: <Link to="/item2">Item 2</Link>,
       key: "/item2",
-      // icon: <Icon icon="ri:currency-fill" width="20" height="20" />,
+      icon: <Icon icon="ri:currency-fill" width="20" height="20" />,
     },
     {
       label: <Link to="/item 3">Item 3</Link>,
       key: "/item 3",
-      // icon: <Icon icon="mdi:calculator" width="20" height="20" />,
+      icon: <Icon icon="mdi:calculator" width="20" height="20" />,
     },
   ];
 
@@ -30,35 +30,43 @@ function App() {
   };
   const siderHeaderStyle = {
     padding: "20px",
-    color: "white",
     alignItems: "center",
     margin: "auto",
     display: "flex",
     lineHeight: 0,
+    background: "white",
   };
   const contentHeaderStyle = {
-    color: "white",
+    color: "black",
     padding: 0,
     alignItems: "center",
+    background: "white",
     display: "flex",
     lineHeight: 0,
   };
-  const collapsedButton = { color: "white", marginLeft: 10, marginRight: 20 };
+  const collapsedButton = { marginLeft: 10, marginRight: 20 };
   const contentStyle = { margin: "24px 16px 0", padding: 24 };
-
+  const siderStyle = { background: "white" };
+  const footerStyle = { background: "white" };
+  
   return (
     <Layout style={layoutStyle}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        style={siderStyle}
+      >
         <Header style={siderHeaderStyle}>
           <Space>
             {collapsed ? (
-              <Image src="public\logo-collapsed.png" />
+              <Image src="public\logo-collapsed.png" preview={false} />
             ) : (
-              <Image width={100} src="public\logo.png" />
+              <Image width={100} src="public\logo.png" preview={false} />
             )}
           </Space>
         </Header>
-        <Menu items={menuItems} theme="dark"></Menu>
+        <Menu items={menuItems} theme="light"></Menu>
       </Sider>
       <Layout>
         <Header style={contentHeaderStyle}>
@@ -86,7 +94,7 @@ function App() {
           <h1>Hello World!</h1>
           This is admin homepage.
         </Content>
-        <Footer>
+        <Footer style={footerStyle}>
           Travel Planner <CopyrightOutlined /> 2023 Created by Group C6
         </Footer>
       </Layout>

@@ -1,13 +1,5 @@
 import { useState } from "react";
-import {
-  Button,
-  Form,
-  Input,
-  Upload,
-  Select,
-  Space,
-  message,
-} from "antd";
+import { Button, Form, Input, Upload, Select, Space, message } from "antd";
 import { Link } from "react-router-dom";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 
@@ -41,6 +33,7 @@ const tailFormItemLayout = {
     },
   },
 };
+
 const RegisterForm = () => {
   const [form] = Form.useForm();
   const [imageUrl, setImageUrl] = useState(null);
@@ -78,33 +71,38 @@ const RegisterForm = () => {
     reader.addEventListener("load", () => callback(reader.result));
     reader.readAsDataURL(img);
   };
-
+  const rootDivStyle = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+  };
+  const formStyle = {
+    maxWidth: 600,
+    border: "1px solid gray",
+    borderRadius: 30,
+    padding: 30,
+  };
+  const formTitleStyle = { textAlign: "center", marginBottom: "30px" };
+  const avatarStyle = { width: "100%" };
+  const uploadButtonStyle = { marginTop: 8 };
+  const buttonsStyle = { textAlign: "center" };
+  const resetButtonStyle = { width: "80px" };
+  const signupButtonStyle = { width: "80px" };
+  const backToLoginStyle = { textAlign: "center" };
+  
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-      }}
-    >
+    <div style={rootDivStyle}>
       <Form
         {...formItemLayout}
         form={form}
         name="register"
         onFinish={onFinish}
-        style={{
-          maxWidth: 600,
-          border: "1px solid gray",
-          borderRadius: 30,
-          padding: 30,
-        }}
+        style={formStyle}
         scrollToFirstError
       >
         <Form.Item>
-          <h1 style={{ textAlign: "center", marginBottom: "30px" }}>
-            CREATE ACCOUNT
-          </h1>
+          <h1 style={formTitleStyle}>CREATE ACCOUNT</h1>
         </Form.Item>
 
         <Form.Item
@@ -204,28 +202,28 @@ const RegisterForm = () => {
             onChange={handleAvatarChange}
           >
             {imageUrl ? (
-              <img src={imageUrl} alt="avatar" style={{ width: "100%" }} />
+              <img src={imageUrl} alt="avatar" style={avatarStyle} />
             ) : (
               <div>
                 {loading ? <LoadingOutlined /> : <PlusOutlined />}
-                <div style={{ marginTop: 8 }}>Upload</div>
+                <div style={uploadButtonStyle}>Upload</div>
               </div>
             )}
           </Upload>
         </Form.Item>
 
-        <Form.Item {...tailFormItemLayout} style={{ textAlign: "center" }}>
+        <Form.Item {...tailFormItemLayout} style={buttonsStyle}>
           <Space direction="column">
-            <Button type="primary" htmlType="submit" style={{ width: "80px" }}>
+            <Button type="primary" htmlType="submit" style={signupButtonStyle}>
               Sign Up
             </Button>
-            <Button htmlType="reset" style={{ width: "80px" }}>
+            <Button htmlType="reset" style={resetButtonStyle}>
               Reset
             </Button>
           </Space>
         </Form.Item>
 
-        <Form.Item style={{ textAlign: "center" }}>
+        <Form.Item style={backToLoginStyle}>
           Already have an account? <Link to="/login">Login</Link> instead.
         </Form.Item>
       </Form>
