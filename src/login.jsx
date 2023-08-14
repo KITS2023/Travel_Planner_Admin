@@ -3,30 +3,37 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 
-export const LoginForm = () => {
+const LoginForm = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
+  const formStyle = {
+    border: "1px solid gray",
+    borderRadius: 20,
+    maxWidth: "300px",
+    margin: "200px auto",
+    height: "100%",
+    display: "flex",
+    padding: "20px",
+    justifyContent: "center",
+    flexDirection: "column",
+  };
+  const formTitleStyle = { textAlign: "center" };
+  const forgotLinkStyle = { float: "right" };
+  const loginButtonStyle = { width: "100%" };
+  const signupLinkStyle = { textAlign: "center" };
 
   return (
     <Form
       name="normal_login"
       className="login-form"
-      style={{
-        maxWidth: "300px",
-        margin: "200px auto",
-        height: "100%",
-        display: "flex",
-        padding: "20px",
-        justifyContent: "center",
-        flexDirection: "column",
-      }}
+      style={formStyle}
       initialValues={{
         remember: true,
       }}
       onFinish={onFinish}
     >
-      <Form.Item style={{textAlign: "center"}}>
+      <Form.Item style={formTitleStyle}>
         <h1>USER LOGIN</h1>
       </Form.Item>
       <Form.Item
@@ -63,9 +70,13 @@ export const LoginForm = () => {
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
 
-        <a className="login-form-forgot" href="" style={{ float: "right" }}>
+        <Link
+          to="/forgot-password"
+          className="login-form-forgot"
+          style={forgotLinkStyle}
+        >
           Forgot password
-        </a>
+        </Link>
       </Form.Item>
 
       <Form.Item>
@@ -73,23 +84,16 @@ export const LoginForm = () => {
           type="primary"
           htmlType="submit"
           className="login-form-button"
-          style={{ width: "100%" }}
+          style={loginButtonStyle}
         >
           Login
         </Button>
       </Form.Item>
-      <Form.Item style={{ textAlign: "center" }}>
+      <Form.Item style={signupLinkStyle}>
         Don't have an account? <Link to="/register">Sign up</Link> now!
       </Form.Item>
     </Form>
   );
 };
-export const Login = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<LoginForm />} />
-      </Routes>
-    </Router>
-  );
-};
+
+export default LoginForm;

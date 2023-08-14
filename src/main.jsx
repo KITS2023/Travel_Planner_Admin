@@ -1,27 +1,30 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import ErrorPage from './error-page.jsx'
-import App from './App.jsx'
-import { Login, LoginForm } from './login.jsx'
-import { Register, RegisterForm } from "./register.jsx";
-import './index.css'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import ErrorPage from './ErrorPage.jsx';
+import App from './App.jsx';
+import LoginForm from './Login.jsx';
+import RegisterForm from "./Register.jsx";
+import ForgotPasswordPage from "./ForgotPasswordPage.jsx";
+import './index.css';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
-    loginElement: <Login />,
-    registerElement: <Register />
+    errorElement: <ErrorPage />
   },
   {
-    path: "/login",
+    path: "login",
     element: <LoginForm />
   },
   {
-    path: "/register",
+    path: "register",
     element: <RegisterForm />
+  },
+  {
+    path: "forgot-password",
+    element: <ForgotPasswordPage />
   }
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(

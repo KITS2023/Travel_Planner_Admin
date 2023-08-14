@@ -41,7 +41,7 @@ const tailFormItemLayout = {
     },
   },
 };
-export const RegisterForm = () => {
+const RegisterForm = () => {
   const [form] = Form.useForm();
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -66,7 +66,6 @@ export const RegisterForm = () => {
       return;
     }
     if (info.file.status === "done") {
-      // Get the URL of the uploaded photo and set it as the imageUrl state
       getBase64(info.file.originFileObj, (imageUrl) => {
         setLoading(false);
         setImageUrl(imageUrl);
@@ -233,12 +232,4 @@ export const RegisterForm = () => {
     </div>
   );
 };
-export const Register = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/register" element={<RegisterForm />} />
-      </Routes>
-    </Router>
-  );
-};
+export default RegisterForm;
