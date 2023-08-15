@@ -1,27 +1,60 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Layout, Menu, Button, Image, Space } from "antd";
-import { CopyrightOutlined } from "@ant-design/icons";
+import {
+  Layout,
+  Menu,
+  Button,
+  Image,
+  Space,
+  Avatar,
+  Dropdown,
+  Input,
+  Divider,
+  Calendar,
+} from "antd";
+import {
+  CopyrightOutlined,
+  SearchOutlined,
+  UserOutlined,
+  DownOutlined,
+  MenuOutlined,
+} from "@ant-design/icons";
 import { Icon } from "@iconify/react";
 const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
+  const onPanelChange = (value, mode) => {
+    console.log(value.format("YYYY-MM-DD"), mode);
+  };
   const menuItems = [
+    // icons are to be changed later when determining child components
     {
-      label: <Link to="/item1">Item 1</Link>,
-      key: "/item1",
+      label: <Link to="">Users</Link>,
+      key: "",
       icon: <Icon icon="mdi:human-hello" width="20" height="20" />,
     },
     {
-      label: <Link to="/item2">Item 2</Link>,
-      key: "/item2",
+      label: <Link to="">Comments</Link>,
+      key: "",
       icon: <Icon icon="ri:currency-fill" width="20" height="20" />,
     },
+  ];
+  const items = [
     {
-      label: <Link to="/item 3">Item 3</Link>,
-      key: "/item 3",
-      icon: <Icon icon="mdi:calculator" width="20" height="20" />,
+      label: <a href="">Profile</a>,
+      key: "0",
+    },
+    {
+      label: <a href="">Settings</a>,
+      key: "1",
+    },
+    {
+      type: "divider",
+    },
+    {
+      label: <a href="">Logout</a>,
+      key: "3",
     },
   ];
 
@@ -38,17 +71,30 @@ function App() {
   };
   const contentHeaderStyle = {
     color: "black",
-    padding: 0,
+    paddingTop: 20,
+    paddingRight: 20,
+    paddingBottom: 20,
+    paddingLeft: 0,
     alignItems: "center",
     background: "white",
     display: "flex",
     lineHeight: 0,
+    justifyContent: "space-between",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
   };
-  const collapsedButton = { marginLeft: 10, marginRight: 20 };
-  const contentStyle = { margin: "24px 16px 0", padding: 24 };
-  const siderStyle = { background: "white" };
-  const footerStyle = { background: "white" };
-  
+  const contentStyle = { margin: "16px 16px 0", padding: 16 };
+  const siderStyle = {
+    background: "white",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+  };
+  const footerStyle = {
+    background: "white",
+    textAlign: "center",
+    color: "gray",
+  };
+  const avatarStyle = { backgroundColor: "#87d068" };
+  const searchInputStyle = { maxWidth: "200px" };
+  const collapseButtonStyle = { fontSize: "16px", width: 64, height: 64 };
   return (
     <Layout style={layoutStyle}>
       <Sider
@@ -66,36 +112,45 @@ function App() {
             )}
           </Space>
         </Header>
+        <Divider orientation="left">MANAGEMENT</Divider>
         <Menu items={menuItems} theme="light"></Menu>
+        <Divider orientation="left">Chart</Divider>
       </Sider>
       <Layout>
         <Header style={contentHeaderStyle}>
+          <Button
+            type="text"
+            icon={<MenuOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={collapseButtonStyle}
+          />
+          <h2>DASHBOARD</h2>
+          <Input
+            size="default"
+            placeholder="Search"
+            prefix={<SearchOutlined />}
+            style={searchInputStyle}
+          />
           <Space>
-            <Button
-              type="text"
-              style={collapsedButton}
-              icon={
-                collapsed ? (
-                  <Icon
-                    icon="line-md:menu-unfold-right"
-                    width="20"
-                    height="20"
-                  />
-                ) : (
-                  <Icon icon="line-md:menu-fold-right" width="20" height="20" />
-                )
-              }
-              onClick={() => setCollapsed(!collapsed)}
-            />
-            <h3>Dashboard</h3>
+            
+            <Divider type="vertical"></Divider>
+            <Dropdown menu={{ items }}>
+              <a onClick={(e) => e.preventDefault()}>
+                <Space>
+                  <DownOutlined />
+                  Admin
+                </Space>
+              </a>
+            </Dropdown>
+            <Avatar style={avatarStyle} icon={<UserOutlined />} />
           </Space>
         </Header>
         <Content style={contentStyle}>
-          <h1>Hello World!</h1>
-          This is admin homepage.
+          <h1>Calendar</h1>
+          <Calendar onPanelChange={onPanelChange} />
         </Content>
         <Footer style={footerStyle}>
-          Travel Planner <CopyrightOutlined /> 2023 Created by Group C6
+          Travel Planner <CopyrightOutlined /> 2023 Group C6
         </Footer>
       </Layout>
     </Layout>
