@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import {
   Layout,
   Menu,
@@ -18,8 +18,15 @@ import {
   UserOutlined,
   DownOutlined,
   MenuOutlined,
+  AppstoreOutlined,
+  PieChartOutlined,
 } from "@ant-design/icons";
-import { Icon } from "@iconify/react";
+import Flights from "./components/Flights";
+import Activities from "./components/Activities";
+import Accomodations from "./components/Accomodations";
+import Users from "./components/Users";
+import Comments from "./components/Comments";
+
 const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
@@ -27,18 +34,25 @@ function App() {
   const onPanelChange = (value, mode) => {
     console.log(value.format("YYYY-MM-DD"), mode);
   };
+  function getItem(label, key, icon, children, type) {
+    return {
+      key,
+      icon,
+      children,
+      label,
+      type,
+    };
+  }
   const menuItems = [
-    // icons are to be changed later when determining child components
-    {
-      label: <Link to="">Users</Link>,
-      key: "",
-      icon: <Icon icon="mdi:human-hello" width="20" height="20" />,
-    },
-    {
-      label: <Link to="">Comments</Link>,
-      key: "",
-      icon: <Icon icon="ri:currency-fill" width="20" height="20" />,
-    },
+    getItem("Dashboard", "sub1", <PieChartOutlined />, [
+      getItem(<Link to="/flights">Flights</Link>, "1"),
+      getItem(<Link to="/accomodations">Accomodations</Link>, "2"),
+      getItem(<Link to="/activities">Activities</Link>, "3"),
+    ]),
+    getItem("Management", "sub2", <AppstoreOutlined />, [
+      getItem(<Link to="/users">Users</Link>, "4"),
+      getItem(<Link to="/comments">Comments</Link>, "5"),
+    ]),
   ];
   const items = [
     {
@@ -82,7 +96,7 @@ function App() {
     justifyContent: "space-between",
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
   };
-  const contentStyle = { margin: "16px 16px 0", padding: 16 };
+  const contentStyle = { margin: 16, padding: 16 };
   const siderStyle = {
     background: "white",
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
@@ -112,9 +126,14 @@ function App() {
             )}
           </Space>
         </Header>
-        <Divider orientation="left">MANAGEMENT</Divider>
-        <Menu items={menuItems} theme="light"></Menu>
-        <Divider orientation="left">Chart</Divider>
+        <Menu
+          items={menuItems}
+          theme="light"
+          // defaultSelectedKeys={["1"]}
+          // defaultOpenKeys={["sub1"]}
+          mode="inline"
+          // inlineCollapsed={collapsed}
+        ></Menu>
       </Sider>
       <Layout>
         <Header style={contentHeaderStyle}>
@@ -124,7 +143,7 @@ function App() {
             onClick={() => setCollapsed(!collapsed)}
             style={collapseButtonStyle}
           />
-          <h2>DASHBOARD</h2>
+
           <Input
             size="default"
             placeholder="Search"
@@ -132,7 +151,6 @@ function App() {
             style={searchInputStyle}
           />
           <Space>
-            
             <Divider type="vertical"></Divider>
             <Dropdown menu={{ items }}>
               <a onClick={(e) => e.preventDefault()}>
@@ -148,6 +166,13 @@ function App() {
         <Content style={contentStyle}>
           <h1>Calendar</h1>
           <Calendar onPanelChange={onPanelChange} />
+          <Routes>
+            <Route path="/flights" element={<Flights />} />
+            <Route path="/accomodations" element={<Accomodations />} />
+            <Route path="/activities" element={<Activities />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/comments" element={<Comments />} />
+          </Routes>
         </Content>
         <Footer style={footerStyle}>
           Travel Planner <CopyrightOutlined /> 2023 Group C6
