@@ -10,13 +10,11 @@ import {
   Dropdown,
   Input,
   Divider,
-  Calendar,
 } from "antd";
 import {
   CopyrightOutlined,
   SearchOutlined,
   UserOutlined,
-  DownOutlined,
   MenuOutlined,
   AppstoreOutlined,
   PieChartOutlined,
@@ -26,14 +24,14 @@ import Activities from "./components/Activities";
 import Accomodations from "./components/Accomodations";
 import Users from "./components/Users";
 import Comments from "./components/Comments";
+import Calendars from "./components/Calendar";
+import "./App.css";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
-  const onPanelChange = (value, mode) => {
-    console.log(value.format("YYYY-MM-DD"), mode);
-  };
+
   function getItem(label, key, icon, children, type) {
     return {
       key,
@@ -45,7 +43,6 @@ function App() {
   }
   const menuItems = [
     getItem("Dashboard", "sub1", <PieChartOutlined />, [
-      
       getItem(<Link to="/flights">Flights</Link>, "1"),
       getItem(<Link to="/accomodations">Accomodations</Link>, "2"),
       getItem(<Link to="/activities">Activities</Link>, "3"),
@@ -73,52 +70,19 @@ function App() {
     },
   ];
 
-  const layoutStyle = {
-    minHeight: "100vh",
-  };
-  const siderHeaderStyle = {
-    padding: "20px",
-    alignItems: "center",
-    margin: "auto",
-    display: "flex",
-    lineHeight: 0,
-    background: "white",
-  };
-  const contentHeaderStyle = {
-    color: "black",
-    paddingTop: 20,
-    paddingRight: 20,
-    paddingBottom: 20,
-    paddingLeft: 0,
-    alignItems: "center",
-    background: "white",
-    display: "flex",
-    lineHeight: 0,
-    justifyContent: "space-between",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-  };
-  const contentStyle = { margin: 16, padding: 16 };
-  const siderStyle = {
-    background: "white",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-  };
-  const footerStyle = {
-    background: "white",
-    textAlign: "center",
-    color: "gray",
-  };
-  const avatarStyle = { backgroundColor: "#87d068" };
-  const searchInputStyle = { maxWidth: "200px" };
-  const collapseButtonStyle = { fontSize: "16px", width: 64, height: 64 };
   return (
-    <Layout style={layoutStyle}>
+    <Layout className="app-layout">
       <Sider
+        className="sider"
         trigger={null}
         collapsible
         collapsed={collapsed}
-        style={siderStyle}
+        collapsedWidth={70}
+        breakpoint="lg"
+        onBreakpoint={(broken) => setCollapsed(broken)}
+        onCollapse={(collapsed) => setCollapsed(collapsed)}
       >
-        <Header style={siderHeaderStyle}>
+        <Header className="sider-header">
           <Space>
             {collapsed ? (
               <Image src="public\logo-collapsed.png" preview={false} />
@@ -130,44 +94,39 @@ function App() {
         <Menu
           items={menuItems}
           theme="light"
-          // defaultSelectedKeys={["1"]}
-          // defaultOpenKeys={["sub1"]}
+          defaultOpenKeys={["sub1", "sub2"]}
           mode="inline"
-          // inlineCollapsed={collapsed}
         ></Menu>
       </Sider>
       <Layout>
-        <Header style={contentHeaderStyle}>
-          <Button
-            type="text"
-            icon={<MenuOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={collapseButtonStyle}
-          />
-
+        <Header className="content-header">
+          <Space>
+            <Button
+              type="text"
+              icon={<MenuOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              className="collapse-button"
+            />
+            <Divider type="vertical"></Divider>
+          </Space>
           <Input
             size="default"
             placeholder="Search"
             prefix={<SearchOutlined />}
-            style={searchInputStyle}
+            className="search-input"
           />
           <Space>
             <Divider type="vertical"></Divider>
             <Dropdown menu={{ items }}>
               <a onClick={(e) => e.preventDefault()}>
-                <Space>
-                  <DownOutlined />
-                  Admin
-                </Space>
+                <Avatar className="avatar" icon={<UserOutlined />} />
               </a>
             </Dropdown>
-            <Avatar style={avatarStyle} icon={<UserOutlined />} />
           </Space>
         </Header>
-        <Content style={contentStyle}>
-          {/* <h1>Calendar</h1>
-          <Calendar onPanelChange={onPanelChange} /> */}
+        <Content className="content">
           <Routes>
+            <Route path="/" element={<Calendars />} />
             <Route path="/flights" element={<Flights />} />
             <Route path="/accomodations" element={<Accomodations />} />
             <Route path="/activities" element={<Activities />} />
@@ -175,7 +134,7 @@ function App() {
             <Route path="/comments" element={<Comments />} />
           </Routes>
         </Content>
-        <Footer style={footerStyle}>
+        <Footer className="footer">
           Travel Planner <CopyrightOutlined /> 2023 Group C6
         </Footer>
       </Layout>

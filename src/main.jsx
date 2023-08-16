@@ -6,11 +6,12 @@ import ErrorPage from "./ErrorPage";
 import LoginForm from "./Login";
 import RegisterForm from "./Register";
 import ForgotPasswordPage from "./ForgotPasswordPage";
-import Flights from "./components/Flights"
+import Flights from "./components/Flights";
 import Accomodations from "./components/Accomodations";
 import Activities from "./components/Activities";
 import Users from "./components/Users";
 import Comments from "./components/Comments";
+import Calendars from "./components/Calendar";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -20,19 +21,26 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
+        index: true,
+        element: <Calendars />,
+      },
+      {
         path: "/flights",
         element: <Flights />,
       },
       {
         path: "/accomodations",
         element: <Accomodations />,
-      },{
+      },
+      {
         path: "/activities",
         element: <Activities />,
-      },{
+      },
+      {
         path: "/users",
         element: <Users />,
-      },{
+      },
+      {
         path: "/comments",
         element: <Comments />,
       },
