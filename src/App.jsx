@@ -45,6 +45,7 @@ function App() {
   }
   const menuItems = [
     getItem("Dashboard", "sub1", <PieChartOutlined />, [
+      
       getItem(<Link to="/flights">Flights</Link>, "1"),
       getItem(<Link to="/accomodations">Accomodations</Link>, "2"),
       getItem(<Link to="/activities">Activities</Link>, "3"),
