@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import {
   Layout,
   Menu,
@@ -166,23 +166,13 @@ function App() {
         <Content style={contentStyle}>
           {/* <h1>Calendar</h1>
           <Calendar onPanelChange={onPanelChange} /> */}
-          <Switch>
-            <Route path="/flights">
-              <Flights />
-            </Route>
-            <Route path="/accomodations">
-              <Accomodations />
-            </Route>
-            <Route path="/activities">
-              <Activities />
-            </Route>
-            <Route path="/users">
-              <Users />
-            </Route>
-            <Route path="/comments">
-              <Comments />
-            </Route>
-          </Switch>
+          <Routes>
+            <Route path="/flights" element={<Flights />} />
+            <Route path="/accomodations" element={<Accomodations />} />
+            <Route path="/activities" element={<Activities />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/comments" element={<Comments />} />
+          </Routes>
         </Content>
         <Footer style={footerStyle}>
           Travel Planner <CopyrightOutlined /> 2023 Group C6
