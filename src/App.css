@@ -8,6 +8,7 @@
   display: flex;
   line-height: 0;
   background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .content-header {
   color: black;
@@ -20,7 +21,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .content {
-  margin: 16px; 
+  margin: 16px;
   padding: 16px;
 }
 div.ant-layout-sider-children {
@@ -32,7 +33,14 @@ div.ant-layout-sider-children {
   text-align: center;
   color: gray;
 }
-.avatar {
+.avatar-header {
+  background-color: #87d068;
+}
+.avatar-sider-container{
+  text-align: center;
+  padding: 20px;
+}
+.avatar-sider {
   background-color: #87d068;
 }
 .search-input {

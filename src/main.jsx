@@ -11,7 +11,7 @@ import Accomodations from "./components/Accomodations";
 import Activities from "./components/Activities";
 import Users from "./components/Users";
 import Comments from "./components/Comments";
-import Calendars from "./components/Calendar";
+import Dashboard from "./components/Dashboard";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Calendars />,
+        element: <Dashboard/>,
       },
       {
         path: "/flights",
