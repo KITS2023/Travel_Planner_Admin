@@ -1,12 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
+import axios from "axios";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
-  };
+  
+  axios
+      .post("http://localhost:8080/api/auth/login", values)
+      .then((response) => {
+        console.log("Response from backend: ", response.data);
+
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error occurred during login:", error);
+      });
+    };
+
   const formStyle = {
     border: "1px solid gray",
     borderRadius: 20,

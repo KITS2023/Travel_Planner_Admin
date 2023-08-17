@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Button, Form, Input, Upload, Select, Space, message } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const formItemLayout = {
   labelCol: {
@@ -35,12 +36,23 @@ const tailFormItemLayout = {
 };
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
-  };
+    axios
+    .post("http://localhost:8080/api/auth/register", values)
+    .then((response) => {
+      console.log("Response from backend: ", response.data);
+
+      navigate("/");
+    })
+    .catch((error) => {
+      console.error("Error occurred during registration:", error);
+    });
+};
   const beforeUpload = (file) => {
     const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
     if (!isJpgOrPng) {
@@ -108,7 +120,6 @@ const RegisterForm = () => {
         <Form.Item
           name="username"
           label="Username"
-          tooltip="What do you want others to call you?"
           rules={[
             {
               required: true,
@@ -119,7 +130,19 @@ const RegisterForm = () => {
         >
           <Input />
         </Form.Item>
-
+        <Form.Item
+          name="fullname"
+          label="Full name"
+          rules={[
+            {
+              required: true,
+              message: "Please input your full name!",
+              whitespace: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
         <Form.Item
           name="email"
           label="E-mail"
@@ -151,7 +174,7 @@ const RegisterForm = () => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
           name="confirm"
           label="Confirm Password"
           dependencies={["password"]}
@@ -174,7 +197,7 @@ const RegisterForm = () => {
           ]}
         >
           <Input.Password />
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item
           name="preferences"
@@ -191,7 +214,6 @@ const RegisterForm = () => {
         <Form.Item
           name="avatar"
           label="Avatar"
-          tooltip="Choose your best looking picture!"
         >
           <Upload
             name="avatar"

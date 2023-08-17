@@ -6,44 +6,39 @@ import { LeftOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react";
 
 const ForgotPasswordPage = () => {
-  const [email, setEmail] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handleIdentifierChange = (e) => {
+    setIdentifier(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!emailIsValid(email)) {
-      setErrorMessage("Please enter a valid email address.");
+    if (!identifier) {
+      setErrorMessage("Please enter a valid username or email address.");
       return;
     }
 
     axios
-      .post(
-        "/api/forgot-password",
-        { email },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .get("http://localhost:8080/api/auth/resetPassword", {
+        params: {
+          usernameOrEmail: identifier,
+        },
+      })
       .then((response) => {
-        if (response.status === 200) {
+        const data = response.data;
+        if (data.success) {
           setIsSubmitted(true);
-          setSuccessMessage("Password reset email sent successfully.");
+          setSuccessMessage(data.message);
           setErrorMessage("");
-        } else if (response.status === 404) {
+        } else {
           setIsSubmitted(true);
           setSuccessMessage("");
-          setErrorMessage("Email not found. Please check your email address.");
-        } else {
-          throw new Error("Failed to send password reset email.");
+          setErrorMessage(data.message);
         }
       })
       .catch((error) => {
@@ -52,10 +47,6 @@ const ForgotPasswordPage = () => {
         setErrorMessage("An error occurred. Please try again later.");
         console.error("Error:", error);
       });
-  };
-
-  const emailIsValid = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
   const formStyle = {
@@ -69,23 +60,24 @@ const ForgotPasswordPage = () => {
 
   const submitButton = { width: "100%" };
   const backButton = { width: "100%" };
+
   return (
     <Form onSubmit={handleSubmit} style={formStyle}>
       <Form.Item>
         <h2>FORGOT PASSWORD</h2>
       </Form.Item>
       <Form.Item>
-        Enter your email and we'll send you a link to reset your password.
+        Enter your email or username and we'll send you a link to reset your
+        password.
       </Form.Item>
-      <Form.Item name="email">
+      <Form.Item name="usernameOrEmail">
         <Input
-          type="email"
-          id="email"
-          value={email}
-          onChange={handleEmailChange}
+          id="usernameOrEmail"
+          value={identifier}
+          onChange={handleIdentifierChange}
           required
           prefix={<Icon icon="ic:outline-email" />}
-          placeholder="Email"
+          placeholder="Email or Username"
         />
       </Form.Item>
       <Form.Item style={{ margin: 0 }}>
