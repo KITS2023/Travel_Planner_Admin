@@ -23,11 +23,14 @@ const ErrorPage = () => {
     width: "300px",
     height: "300px",
   };
+  const paragraphStyle = {
+    textAlign: "center"
+  }
   return (
     <Space style={pageStyle}>
       <img src="public\notfound404.jpg" style={imageStyle} />
       <h1>Oops!</h1>
-      <p>
+      <p style={paragraphStyle}>
         Sorry, the page you are looking for might have been removed or
         temporarily unavailable.
       </p>

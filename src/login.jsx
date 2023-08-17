@@ -1,25 +1,28 @@
-import React from "react";
+import {useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
-import axios from "axios";
+// import axios from "axios";
 
-const LoginForm = () => {
-  const navigate = useNavigate();
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+// eslint-disable-next-line react/prop-types
+const LoginForm = ({ onSubmit }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  // const navigate = useNavigate();
+  // const onFinish = (values) => {
+  //   console.log("Received values of form: ", values);
   
-  axios
-      .post("http://localhost:8080/api/auth/login", values)
-      .then((response) => {
-        console.log("Response from backend: ", response.data);
+  // axios
+  //     .post("http://localhost:8080/api/auth/login", values)
+  //     .then((response) => {
+  //       console.log("Response from backend: ", response.data);
 
-        navigate("/");
-      })
-      .catch((error) => {
-        console.error("Error occurred during login:", error);
-      });
-    };
+  //       navigate("/");
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error occurred during login:", error);
+  //     });
+  //   };
 
   const formStyle = {
     border: "1px solid gray",
@@ -45,7 +48,7 @@ const LoginForm = () => {
       initialValues={{
         remember: true,
       }}
-      onFinish={onFinish}
+      // onFinish={onFinish}
     >
       <Form.Item style={formTitleStyle}>
         <h1>USER LOGIN</h1>
@@ -99,6 +102,9 @@ const LoginForm = () => {
           htmlType="submit"
           className="login-form-button"
           style={loginButtonStyle}
+          onClick={async () => {
+            onSubmit(username, password);
+          }}
         >
           Login
         </Button>

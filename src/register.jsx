@@ -87,7 +87,8 @@ const RegisterForm = () => {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100vh",
+    height: "100%",
+    padding: "30px"
   };
   const formStyle = {
     maxWidth: 600,

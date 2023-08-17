@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Form, Input, Button, Space } from "antd";
+import { Form, Input, Button } from "antd";
 import { LeftOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react";
 
@@ -51,7 +51,7 @@ const ForgotPasswordPage = () => {
 
   const formStyle = {
     maxWidth: "500px",
-    margin: "100px auto",
+    margin: "200px 20px",
     padding: 20,
     textAlign: "center",
     border: "1px solid gray",
