@@ -50,11 +50,14 @@ const ForgotPasswordPage = () => {
   };
 
   const formStyle = {
-    maxWidth: "500px",
-    margin: "200px 20px",
+    maxWidth: "600px",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     padding: 20,
     textAlign: "center",
-    border: "1px solid gray",
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
     borderRadius: 20,
   };
 
@@ -67,7 +70,7 @@ const ForgotPasswordPage = () => {
         <h2>FORGOT PASSWORD</h2>
       </Form.Item>
       <Form.Item>
-        Enter your email or username and we'll send you a link to reset your
+        Enter your email or username and we will send you a link to reset your
         password.
       </Form.Item>
       <Form.Item name="usernameOrEmail">

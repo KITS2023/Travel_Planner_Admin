@@ -1,31 +1,31 @@
-import {useState} from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
-// import axios from "axios";
+import axios from "axios";
 
-// eslint-disable-next-line react/prop-types
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const navigate = useNavigate();
-  // const onFinish = (values) => {
-  //   console.log("Received values of form: ", values);
-  
-  // axios
-  //     .post("http://localhost:8080/api/auth/login", values)
-  //     .then((response) => {
-  //       console.log("Response from backend: ", response.data);
-
-  //       navigate("/");
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error occurred during login:", error);
-  //     });
-  //   };
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/login",
+        {
+          username,
+          password,
+        }
+      );
+      const { token } = response.data;
+      localStorage.setItem("token", token);
+      navigate("/");
+    } catch (error) {
+      console.error("Error occurred during login:", error);
+    }
+  };
 
   const formStyle = {
-    border: "1px solid gray",
     borderRadius: 20,
     maxWidth: "300px",
     margin: "200px auto",
@@ -34,6 +34,7 @@ const LoginForm = ({ onSubmit }) => {
     padding: "20px",
     justifyContent: "center",
     flexDirection: "column",
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)"
   };
   const formTitleStyle = { textAlign: "center" };
   const forgotLinkStyle = { float: "right" };
@@ -48,7 +49,6 @@ const LoginForm = ({ onSubmit }) => {
       initialValues={{
         remember: true,
       }}
-      // onFinish={onFinish}
     >
       <Form.Item style={formTitleStyle}>
         <h1>USER LOGIN</h1>
@@ -65,6 +65,8 @@ const LoginForm = ({ onSubmit }) => {
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
           placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
       </Form.Item>
       <Form.Item
@@ -80,6 +82,8 @@ const LoginForm = ({ onSubmit }) => {
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </Form.Item>
       <Form.Item>
@@ -102,15 +106,13 @@ const LoginForm = ({ onSubmit }) => {
           htmlType="submit"
           className="login-form-button"
           style={loginButtonStyle}
-          onClick={async () => {
-            onSubmit(username, password);
-          }}
+          onClick={handleLogin}
         >
           Login
         </Button>
       </Form.Item>
       <Form.Item style={signupLinkStyle}>
-        Don't have an account? <Link to="/register">Sign up</Link> now!
+        Do not have an account? <Link to="/register">Sign up</Link> now!
       </Form.Item>
     </Form>
   );

@@ -40,6 +40,7 @@ const RegisterForm = () => {
   const [form] = Form.useForm();
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
+  
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
     axios
@@ -92,7 +93,8 @@ const RegisterForm = () => {
   };
   const formStyle = {
     maxWidth: 600,
-    border: "1px solid gray",
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+
     borderRadius: 30,
     padding: 30,
   };
