@@ -8,20 +8,28 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const handleLogin = async () => {
     try {
       const response = await axios.post(
         "http://localhost:8080/api/auth/login",
         {
-          username,
-          password,
+          usernameOrEmail: username,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
-      const { token } = response.data;
-      localStorage.setItem("token", token);
+      const data = response.data;
+      console.log(data);
+      // localStorage.setItem('username', username);
+      localStorage.setItem("token", data.token);
       navigate("/");
     } catch (error) {
-      console.error("Error occurred during login:", error);
+      console.error("Error during login:", error);
     }
   };
 
@@ -34,7 +42,7 @@ const LoginForm = () => {
     padding: "20px",
     justifyContent: "center",
     flexDirection: "column",
-    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)"
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
   };
   const formTitleStyle = { textAlign: "center" };
   const forgotLinkStyle = { float: "right" };
@@ -92,7 +100,7 @@ const LoginForm = () => {
         </Form.Item>
 
         <Link
-          to="/forgot-password"
+          to="/resetPassword"
           className="login-form-forgot"
           style={forgotLinkStyle}
         >

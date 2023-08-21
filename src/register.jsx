@@ -37,23 +37,41 @@ const tailFormItemLayout = {
 
 const RegisterForm = () => {
   const navigate = useNavigate();
-  const [form] = Form.useForm();
+  // const [form] = Form.useForm();
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-  
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-    axios
-    .post("http://localhost:8080/api/auth/register", values)
-    .then((response) => {
-      console.log("Response from backend: ", response.data);
+  const [username, setUsername] = useState("");
+  const [fullname, setFullname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-      navigate("/");
-    })
-    .catch((error) => {
-      console.error("Error occurred during registration:", error);
-    });
-};
+  const onFinish = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/register",
+        {
+          fullName: fullname,
+          username: username,
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = response.data;
+      console.log(data);
+      localStorage.setItem('fullName', fullname);
+
+      navigate("/login");
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
+  };
+
   const beforeUpload = (file) => {
     const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
     if (!isJpgOrPng) {
@@ -89,7 +107,7 @@ const RegisterForm = () => {
     justifyContent: "center",
     alignItems: "center",
     height: "100%",
-    padding: "30px"
+    padding: "30px",
   };
   const formStyle = {
     maxWidth: 600,
@@ -105,12 +123,12 @@ const RegisterForm = () => {
   const resetButtonStyle = { width: "80px" };
   const signupButtonStyle = { width: "80px" };
   const backToLoginStyle = { textAlign: "center" };
-  
+
   return (
     <div style={rootDivStyle}>
       <Form
         {...formItemLayout}
-        form={form}
+        // form={form}
         name="register"
         onFinish={onFinish}
         style={formStyle}
@@ -131,7 +149,10 @@ const RegisterForm = () => {
             },
           ]}
         >
-          <Input />
+          <Input
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
         </Form.Item>
         <Form.Item
           name="fullname"
@@ -144,7 +165,10 @@ const RegisterForm = () => {
             },
           ]}
         >
-          <Input />
+          <Input
+            value={fullname}
+            onChange={(e) => setFullname(e.target.value)}
+          />
         </Form.Item>
         <Form.Item
           name="email"
@@ -160,7 +184,7 @@ const RegisterForm = () => {
             },
           ]}
         >
-          <Input />
+          <Input value={email} onChange={(e) => setEmail(e.target.value)} />
         </Form.Item>
 
         <Form.Item
@@ -174,7 +198,10 @@ const RegisterForm = () => {
           ]}
           hasFeedback
         >
-          <Input.Password />
+          <Input.Password
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </Form.Item>
 
         {/* <Form.Item
@@ -208,16 +235,13 @@ const RegisterForm = () => {
           tooltip="What do you like?"
         >
           <Select mode="multiple" placeholder="Select preferences">
-            <Option value="option1">Option 1</Option>
-            <Option value="option2">Option 2</Option>
-            <Option value="option3">Option 3</Option>
+            <Select.Option value="option1">Option 1</Select.Option>
+            <Select.Option value="option2">Option 2</Select.Option>
+            <Select.Option value="option3">Option 3</Select.Option>
           </Select>
         </Form.Item>
 
-        <Form.Item
-          name="avatar"
-          label="Avatar"
-        >
+        <Form.Item name="avatar" label="Avatar">
           <Upload
             name="avatar"
             listType="picture-card"

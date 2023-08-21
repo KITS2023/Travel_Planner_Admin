@@ -15,7 +15,7 @@ const ForgotPasswordPage = () => {
     setIdentifier(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!identifier) {
@@ -23,30 +23,38 @@ const ForgotPasswordPage = () => {
       return;
     }
 
-    axios
-      .get("http://localhost:8080/api/auth/resetPassword", {
-        params: {
-          usernameOrEmail: identifier,
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/api/auth/resetPassword",
+        {
+          params: {
+            usernameOrEmail: identifier,
+          },
         },
-      })
-      .then((response) => {
-        const data = response.data;
-        if (data.success) {
-          setIsSubmitted(true);
-          setSuccessMessage(data.message);
-          setErrorMessage("");
-        } else {
-          setIsSubmitted(true);
-          setSuccessMessage("");
-          setErrorMessage(data.message);
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      })
-      .catch((error) => {
+      );
+  
+      const data = response.data;
+      if (data.success) {
+        setIsSubmitted(true);
+        setSuccessMessage(data.message);
+        setErrorMessage("");
+        console.log("Email sent successfully!");
+      } else {
         setIsSubmitted(true);
         setSuccessMessage("");
-        setErrorMessage("An error occurred. Please try again later.");
-        console.error("Error:", error);
-      });
+        setErrorMessage(data.message);
+      }
+    } catch (error) {
+      setIsSubmitted(true);
+      setSuccessMessage("");
+      setErrorMessage("An error occurred. Please try again later.");
+      console.error("Error:", error);
+    }
   };
 
   const formStyle = {
@@ -65,7 +73,7 @@ const ForgotPasswordPage = () => {
   const backButton = { width: "100%" };
 
   return (
-    <Form onSubmit={handleSubmit} style={formStyle}>
+    <Form style={formStyle}>
       <Form.Item>
         <h2>FORGOT PASSWORD</h2>
       </Form.Item>
@@ -75,6 +83,7 @@ const ForgotPasswordPage = () => {
       </Form.Item>
       <Form.Item name="usernameOrEmail">
         <Input
+          name="usernameOrEmail"
           id="usernameOrEmail"
           value={identifier}
           onChange={handleIdentifierChange}
@@ -84,7 +93,7 @@ const ForgotPasswordPage = () => {
         />
       </Form.Item>
       <Form.Item style={{ margin: 0 }}>
-        <Button type="primary" htmlType="submit" style={submitButton}>
+        <Button type="primary" onClick={handleSubmit} style={submitButton}>
           Submit
         </Button>
         <Button type="text" style={backButton}>
