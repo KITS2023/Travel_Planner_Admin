@@ -11,6 +11,7 @@ import {
   Input,
   Divider,
   FloatButton,
+  Popover,
   Badge,
 } from "antd";
 import {
@@ -28,6 +29,7 @@ import Accomodations from "./components/Accomodations";
 import Users from "./components/Users";
 import Comments from "./components/Comments";
 import Dashboard from "./components/Dashboard";
+import ProfilePage from "./components/Profile";
 import "./App.css";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -36,11 +38,11 @@ function App() {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   // const fullname = localStorage.getItem('fullName');
-  useEffect(() => {
-    if (localStorage.getItem("token") === null) {
-      navigate("/login");
-    }
-  });
+  // useEffect(() => {
+  //   if (localStorage.getItem("token") === null) {
+  //     navigate("/login");
+  //   }
+  // });
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -77,7 +79,7 @@ function App() {
 
   const items = [
     {
-      label: <a href="">Profile</a>,
+      label: <Link to="/profile">Profile</Link>,
       key: "0",
     },
     {
@@ -92,7 +94,12 @@ function App() {
       key: "3",
     },
   ];
-
+  const content = (
+    <div>
+      <p>Notification 1</p>
+      <p>Notification 2</p>
+    </div>
+  );
   return (
     <Layout className="app-layout">
       <Sider
@@ -108,9 +115,9 @@ function App() {
         <Header className="sider-header">
           <Space>
             {collapsed ? (
-              <Image src="public\logo-collapsed.png" preview={false} />
+              <Image src="\logo-collapsed.png" preview={false} />
             ) : (
-              <Image width={100} src="public\logo.png" preview={false} />
+              <Image width={100} src="\logo.png" preview={false} />
             )}
           </Space>
         </Header>
@@ -152,12 +159,14 @@ function App() {
             className="search-input"
           />
           <Space>
-            <Badge count={10} overflowCount={9}>
-              <Button
-                shape="circle"
-                icon={<Icon icon="mi:notification" width={20} height={20} />}
-              ></Button>
-            </Badge>
+            <Popover content={content} title="Notification" trigger="click">
+              <Badge count={10} overflowCount={9}>
+                <Button
+                  shape="circle"
+                  icon={<Icon icon="mi:notification" width={20} height={20} />}
+                ></Button>
+              </Badge>
+            </Popover>
             <Divider type="vertical"></Divider>
             <Dropdown menu={{ items }}>
               <a onClick={(e) => e.preventDefault()}>
@@ -169,6 +178,7 @@ function App() {
         <Content className="content">
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/profile" element={<ProfilePage/>} />
             <Route path="/flights" element={<Flights />} />
             <Route path="/accomodations" element={<Accomodations />} />
             <Route path="/activities" element={<Activities />} />

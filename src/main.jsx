@@ -12,6 +12,7 @@ import Activities from "./components/Activities";
 import Users from "./components/Users";
 import Comments from "./components/Comments";
 import Dashboard from "./components/Dashboard";
+import ProfilePage from "./components/Profile";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "comments",
         element: <Comments />,
+      },
+      {
+        path: "profile",
+        element: <ProfilePage />,
       },
     ],
   },
