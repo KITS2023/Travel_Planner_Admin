@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { Space, Calendar, Col, Row } from "antd";
-import { Area } from "@ant-design/plots";
+import { Area, 
+  // Column 
+} from "@ant-design/plots";
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import "./DashboardStyle.css";
 
 function Dashboard() {
   const [isMobile, setIsMobile] = useState(false);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -18,25 +21,146 @@ function Dashboard() {
       window.removeEventListener("resize", handleWindowResize);
     };
   }, []);
-  const [data, setData] = useState([]);
 
   useEffect(() => {
     asyncFetch();
   }, []);
 
   const asyncFetch = () => {
-    axios
-      .get(
-        "https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json"
-      )
+    axios.get('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json')
       .then((response) => {
         setData(response.data);
       })
       .catch((error) => {
-        console.log("fetch data failed", error);
+        console.log('fetch data failed', error);
       });
   };
+  // const asyncFetch = () => {
+  //   const request1 = axios.get(
+  //     "https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json"
+  //   );
+  //   const request2 = axios.get(
+  //     "https://gw.alipayobjects.com/os/antfincdn/iPY8JFnxdb/dodge-padding.json"
+  //   );
 
+  //   Promise.all([request1, request2])
+  //     .then(([response1, response2]) => {
+  //       const data1 = response1.data;
+  //       const data2 = response2.data;
+  //       setData({
+  //         data1: data1,
+  //         data2: data2,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log("fetch data failed", error);
+  //     });
+  // };
+  
+  // const data1 = [
+  //   {
+  //     name: "London",
+  //     月份: "Jan.",
+  //     月均降雨量: 18.9,
+  //   },
+  //   {
+  //     name: "London",
+  //     月份: "Feb.",
+  //     月均降雨量: 28.8,
+  //   },
+  //   {
+  //     name: "London",
+  //     月份: "Mar.",
+  //     月均降雨量: 39.3,
+  //   },
+  //   {
+  //     name: "London",
+  //     月份: "Apr.",
+  //     月均降雨量: 81.4,
+  //   },
+  //   {
+  //     name: "London",
+  //     月份: "May",
+  //     月均降雨量: 47,
+  //   },
+  //   {
+  //     name: "London",
+  //     月份: "Jun.",
+  //     月均降雨量: 20.3,
+  //   },
+  //   {
+  //     name: "London",
+  //     月份: "Jul.",
+  //     月均降雨量: 24,
+  //   },
+  //   {
+  //     name: "London",
+  //     月份: "Aug.",
+  //     月均降雨量: 35.6,
+  //   },
+  //   {
+  //     name: "Berlin",
+  //     月份: "Jan.",
+  //     月均降雨量: 12.4,
+  //   },
+  //   {
+  //     name: "Berlin",
+  //     月份: "Feb.",
+  //     月均降雨量: 23.2,
+  //   },
+  //   {
+  //     name: "Berlin",
+  //     月份: "Mar.",
+  //     月均降雨量: 34.5,
+  //   },
+  //   {
+  //     name: "Berlin",
+  //     月份: "Apr.",
+  //     月均降雨量: 99.7,
+  //   },
+  //   {
+  //     name: "Berlin",
+  //     月份: "May",
+  //     月均降雨量: 52.6,
+  //   },
+  //   {
+  //     name: "Berlin",
+  //     月份: "Jun.",
+  //     月均降雨量: 35.5,
+  //   },
+  //   {
+  //     name: "Berlin",
+  //     月份: "Jul.",
+  //     月均降雨量: 37.4,
+  //   },
+  //   {
+  //     name: "Berlin",
+  //     月份: "Aug.",
+  //     月均降雨量: 42.4,
+  //   },
+  // ];
+  // const config1 = {
+  //   data1,
+  //   isGroup: true,
+  //   xField: "月份",
+  //   yField: "月均降雨量",
+  //   seriesField: "name",
+  //   label: {
+  //     position: "middle",
+
+  //     layout: [
+  //       {
+  //         type: "interval-adjust-position",
+  //       },
+  //       {
+  //         type: "interval-hide-overlap",
+  //       },
+  //       {
+  //         type: "adjust-color",
+  //       },
+  //     ],
+  //   },
+  // };
   const config = {
     data,
     xField: "Date",
@@ -55,8 +179,9 @@ function Dashboard() {
   return (
     <Space direction="vertical" className="dashboard-container">
       <div>
-        <Row gutter={16}>
-          <Col xs={24} sm={12} md={6}>
+        <h1>Statistics</h1>
+        <Row gutter={20}>
+          <Col xs={48} sm={24} md={12}>
             <div className="gutter-row">
               <Space>
                 <Icon icon="fa-solid:users" color="gray" />
@@ -74,7 +199,7 @@ function Dashboard() {
               </p>
             </div>
           </Col>
-          <Col xs={24} sm={12} md={6}>
+          <Col xs={48} sm={24} md={12}>
             <div className="gutter-row">
               <Space>
                 <Icon icon="fa6-solid:comments" color="gray" />
@@ -92,47 +217,19 @@ function Dashboard() {
               </p>
             </div>
           </Col>
-          <Col xs={24} sm={12} md={6}>
-            <div className="gutter-row">
-              <Space>
-                <Icon icon="humbleicons:activity" color="gray" />
-                <h4>Activities</h4>
-              </Space>
-              <h1 className="up">500</h1>
-              <p>
-                <Icon
-                  icon="teenyicons:up-solid"
-                  color="#26a65b"
-                  width={10}
-                  height={10}
-                />{" "}
-                2% from last month
-              </p>
-            </div>
-          </Col>
-          <Col xs={24} sm={12} md={6}>
-            <div className="gutter-row">
-              <Space>
-                <Icon icon="bi:houses" color="gray" />
-                <h4>Accomodations</h4>
-              </Space>
-              <h1 className="down">1,000</h1>
-              <p>
-                <Icon
-                  icon="teenyicons:down-solid"
-                  color="#ef4836"
-                  width="10"
-                  height="10"
-                />{" "}
-                10% from last month
-              </p>
-            </div>
-          </Col>
         </Row>
       </div>
       <div>
-        <h1>Statistics</h1>
-        <Area {...config} />
+        <Row gutter={20}>
+          <Col xs={48} sm={24} md={12}>
+            <h1>Users</h1>
+            <Area {...config} />
+          </Col>
+          <Col xs={48} sm={24} md={12}>
+            <h1>Comments</h1>
+            <Area {...config} />
+          </Col>
+        </Row>
       </div>
       <div className="calendar-container">
         <h1>Calendar</h1>

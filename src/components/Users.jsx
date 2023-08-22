@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Table, Space } from "antd";
 import axios from "axios";
 
 function Users() {
@@ -7,14 +8,11 @@ function Users() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8080/api/users",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        const response = await axios.get("http://localhost:8080/api/users", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         setUsers(response.data.data);
         console.log(response.data.data);
       } catch (error) {
@@ -24,32 +22,53 @@ function Users() {
     fetchUsers();
   }, []);
 
+  const columns = [
+    {
+      title: "#",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Full Name",
+      dataIndex: "fullName",
+      key: "fullname",
+    },
+    {
+      title: "Username",
+      dataIndex: "username",
+      key: "username",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: "Role",
+      dataIndex: "role",
+      key: "role",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: () => (
+        <Space size="middle">
+          <a>Update</a>
+          <a>Delete</a>
+        </Space>
+      ),
+    },
+  ];
+  const tableContainerStyle = {
+    width: "50%",
+  };
+
   return (
-    <div>
-      <h2>User Management</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Full Name</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.fullName}</td>
-              <td>{user.username}</td>
-              <td>{user.email}</td>
-              <td>{user.role}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <Space direction="vertical" style={tableContainerStyle}>
+      <h1>User Management</h1>
+      <Table columns={columns} dataSource={users} />
+    </Space>
   );
 }
+
 export default Users;
