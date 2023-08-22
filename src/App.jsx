@@ -38,11 +38,11 @@ function App() {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   // const fullname = localStorage.getItem('fullName');
-  useEffect(() => {
-    if (localStorage.getItem("token") === null) {
-      navigate("/login");
-    }
-  });
+  // useEffect(() => {
+  //   if (localStorage.getItem("token") === null) {
+  //     navigate("/login");
+  //   }
+  // });
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -114,11 +114,13 @@ function App() {
       >
         <Header className="sider-header">
           <Space>
-            {collapsed ? (
-              <Image src="\logo-collapsed.png" preview={false} />
-            ) : (
-              <Image width={100} src="\logo.png" preview={false} />
-            )}
+            <Link to="/">
+              {collapsed ? (
+                <Image src="\logo-collapsed.png" preview={false} />
+              ) : (
+                <Image width={100} src="\logo.png" preview={false} />
+              )}
+            </Link>
           </Space>
         </Header>
         {/* {collapsed ? (
@@ -178,7 +180,7 @@ function App() {
         <Content className="content">
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/profile" element={<ProfilePage/>} />
+            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/flights" element={<Flights />} />
             <Route path="/accomodations" element={<Accomodations />} />
             <Route path="/activities" element={<Activities />} />

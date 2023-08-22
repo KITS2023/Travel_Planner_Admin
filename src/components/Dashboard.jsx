@@ -1,11 +1,117 @@
 import { useState, useEffect } from "react";
-import { Space, Calendar, Col, Row } from "antd";
-import { Area, 
-  // Column 
-} from "@ant-design/plots";
+import { Space, Calendar, Col, Row, Card } from "antd";
+import { Area, Column } from "@ant-design/plots";
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import "./DashboardStyle.css";
+
+const DemoColumn = () => {
+  const data = [
+    {
+      name: "Positive",
+      month: "Jan.",
+      amount: 18.9,
+    },
+    {
+      name: "Positive",
+      month: "Feb.",
+      amount: 28.8,
+    },
+    {
+      name: "Positive",
+      month: "Mar.",
+      amount: 39.3,
+    },
+    {
+      name: "Positive",
+      month: "Apr.",
+      amount: 81.4,
+    },
+    {
+      name: "Positive",
+      month: "May",
+      amount: 47,
+    },
+    {
+      name: "Positive",
+      month: "Jun.",
+      amount: 20.3,
+    },
+    {
+      name: "Positive",
+      month: "Jul.",
+      amount: 24,
+    },
+    {
+      name: "Positive",
+      month: "Aug.",
+      amount: 35.6,
+    },
+    {
+      name: "Negative",
+      month: "Jan.",
+      amount: 12.4,
+    },
+    {
+      name: "Negative",
+      month: "Feb.",
+      amount: 23.2,
+    },
+    {
+      name: "Negative",
+      month: "Mar.",
+      amount: 34.5,
+    },
+    {
+      name: "Negative",
+      month: "Apr.",
+      amount: 99.7,
+    },
+    {
+      name: "Negative",
+      month: "May",
+      amount: 52.6,
+    },
+    {
+      name: "Negative",
+      month: "Jun.",
+      amount: 35.5,
+    },
+    {
+      name: "Negative",
+      month: "Jul.",
+      amount: 37.4,
+    },
+    {
+      name: "Negative",
+      month: "Aug.",
+      amount: 42.4,
+    },
+  ];
+  const config = {
+    data,
+    isGroup: true,
+    xField: "month",
+    yField: "amount",
+    seriesField: "name",
+    color: ['#26a65b', '#ef4836'],
+    label: {
+      position: "middle",
+      layout: [
+        {
+          type: "interval-adjust-position",
+        },
+        {
+          type: "interval-hide-overlap",
+        },
+        {
+          type: "adjust-color",
+        },
+      ],
+    },
+  };
+  return config;
+};
 
 function Dashboard() {
   const [isMobile, setIsMobile] = useState(false);
@@ -27,140 +133,18 @@ function Dashboard() {
   }, []);
 
   const asyncFetch = () => {
-    axios.get('https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json')
-      .then((response) => {
-        setData(response.data);
+    axios
+      .get(
+        "https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json"
+      )
+      .then((response1) => {
+        setData(response1.data);
       })
       .catch((error) => {
-        console.log('fetch data failed', error);
+        console.log("fetch data failed", error);
       });
   };
-  // const asyncFetch = () => {
-  //   const request1 = axios.get(
-  //     "https://gw.alipayobjects.com/os/bmw-prod/1d565782-dde4-4bb6-8946-ea6a38ccf184.json"
-  //   );
-  //   const request2 = axios.get(
-  //     "https://gw.alipayobjects.com/os/antfincdn/iPY8JFnxdb/dodge-padding.json"
-  //   );
-
-  //   Promise.all([request1, request2])
-  //     .then(([response1, response2]) => {
-  //       const data1 = response1.data;
-  //       const data2 = response2.data;
-  //       setData({
-  //         data1: data1,
-  //         data2: data2,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.log("fetch data failed", error);
-  //     });
-  // };
-  
-  // const data1 = [
-  //   {
-  //     name: "London",
-  //     月份: "Jan.",
-  //     月均降雨量: 18.9,
-  //   },
-  //   {
-  //     name: "London",
-  //     月份: "Feb.",
-  //     月均降雨量: 28.8,
-  //   },
-  //   {
-  //     name: "London",
-  //     月份: "Mar.",
-  //     月均降雨量: 39.3,
-  //   },
-  //   {
-  //     name: "London",
-  //     月份: "Apr.",
-  //     月均降雨量: 81.4,
-  //   },
-  //   {
-  //     name: "London",
-  //     月份: "May",
-  //     月均降雨量: 47,
-  //   },
-  //   {
-  //     name: "London",
-  //     月份: "Jun.",
-  //     月均降雨量: 20.3,
-  //   },
-  //   {
-  //     name: "London",
-  //     月份: "Jul.",
-  //     月均降雨量: 24,
-  //   },
-  //   {
-  //     name: "London",
-  //     月份: "Aug.",
-  //     月均降雨量: 35.6,
-  //   },
-  //   {
-  //     name: "Berlin",
-  //     月份: "Jan.",
-  //     月均降雨量: 12.4,
-  //   },
-  //   {
-  //     name: "Berlin",
-  //     月份: "Feb.",
-  //     月均降雨量: 23.2,
-  //   },
-  //   {
-  //     name: "Berlin",
-  //     月份: "Mar.",
-  //     月均降雨量: 34.5,
-  //   },
-  //   {
-  //     name: "Berlin",
-  //     月份: "Apr.",
-  //     月均降雨量: 99.7,
-  //   },
-  //   {
-  //     name: "Berlin",
-  //     月份: "May",
-  //     月均降雨量: 52.6,
-  //   },
-  //   {
-  //     name: "Berlin",
-  //     月份: "Jun.",
-  //     月均降雨量: 35.5,
-  //   },
-  //   {
-  //     name: "Berlin",
-  //     月份: "Jul.",
-  //     月均降雨量: 37.4,
-  //   },
-  //   {
-  //     name: "Berlin",
-  //     月份: "Aug.",
-  //     月均降雨量: 42.4,
-  //   },
-  // ];
-  // const config1 = {
-  //   data1,
-  //   isGroup: true,
-  //   xField: "月份",
-  //   yField: "月均降雨量",
-  //   seriesField: "name",
-  //   label: {
-  //     position: "middle",
-
-  //     layout: [
-  //       {
-  //         type: "interval-adjust-position",
-  //       },
-  //       {
-  //         type: "interval-hide-overlap",
-  //       },
-  //       {
-  //         type: "adjust-color",
-  //       },
-  //     ],
-  //   },
-  // };
+  const config1 = DemoColumn();
   const config = {
     data,
     xField: "Date",
@@ -182,12 +166,10 @@ function Dashboard() {
         <h1>Statistics</h1>
         <Row gutter={20}>
           <Col xs={48} sm={24} md={12}>
-            <div className="gutter-row">
-              <Space>
-                <Icon icon="fa-solid:users" color="gray" />
-                <h4>Users</h4>
-              </Space>
-              <h1 className="up">2,000</h1>
+            <Card className="gutter-row">
+              <Icon icon="fa-solid:users" color="gray" />
+              <h4>Users</h4>
+              <h2 className="up">2,000</h2>
               <p>
                 <Icon
                   icon="teenyicons:up-solid"
@@ -197,15 +179,13 @@ function Dashboard() {
                 />{" "}
                 5% from last month
               </p>
-            </div>
+            </Card>
           </Col>
           <Col xs={48} sm={24} md={12}>
-            <div className="gutter-row">
-              <Space>
-                <Icon icon="fa6-solid:comments" color="gray" />
-                <h4>Comments</h4>
-              </Space>
-              <h1 className="down">20,000</h1>
+            <Card className="gutter-row">
+              <Icon icon="fa6-solid:comments" color="gray" />
+              <h4>Comments</h4>
+              <h2 className="down">20,000</h2>
               <p>
                 <Icon
                   icon="teenyicons:down-solid"
@@ -215,7 +195,7 @@ function Dashboard() {
                 />{" "}
                 20% from last month
               </p>
-            </div>
+            </Card>
           </Col>
         </Row>
       </div>
@@ -223,11 +203,11 @@ function Dashboard() {
         <Row gutter={20}>
           <Col xs={48} sm={24} md={12}>
             <h1>Users</h1>
-            <Area {...config} />
+            <Area {...config} className="area-chart" />
           </Col>
           <Col xs={48} sm={24} md={12}>
             <h1>Comments</h1>
-            <Area {...config} />
+            <Column {...config1} className="column-chart" />
           </Col>
         </Row>
       </div>

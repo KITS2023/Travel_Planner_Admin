@@ -3,9 +3,25 @@
   padding-bottom: 2%;
   padding-left: 2%;
   padding-right: 2.4%;
+  border-radius: 10px;
 }
-
-.gutter-row {
+.dashboard-container > div {
+  margin-bottom: 20px;
+}
+.calendar-container {
+  margin-top: 10px;
+}
+.area-chart{
+  background-color: white;
+  padding: 2%;
+  border-radius: 10px;
+}
+.column-chart{
+  background-color: white;
+  padding: 2%;
+  border-radius: 10px;
+}
+/* .gutter-row {
   background: white;
   padding: 8px;
   height: 100px;
@@ -13,6 +29,10 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+} */
+
+h1 {
+  margin-bottom: 20px;
 }
 
 h4 {
