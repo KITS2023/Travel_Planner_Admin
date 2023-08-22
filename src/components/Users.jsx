@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Users() {
@@ -8,20 +8,19 @@ function Users() {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/users"
-          //   null,
-          //   {
-          //     headers: {
-          //       "Content-Type": "application/json",
-          //     },
-          //   }
+          "http://localhost:8080/api/users",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
         setUsers(response.data.data);
+        console.log(response.data.data);
       } catch (error) {
         console.error("Error:", error);
       }
     };
-
     fetchUsers();
   }, []);
 

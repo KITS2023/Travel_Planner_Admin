@@ -1,4 +1,7 @@
-function Flights(){
-    return(<>Flight Management</>)
+function Flights() {
+  
+  return (
+    <>Flights</>
+  );
 }
 export default Flights;

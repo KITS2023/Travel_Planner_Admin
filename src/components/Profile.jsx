@@ -1,38 +1,41 @@
 import { useState, useEffect } from "react";
+import { Space } from "antd";
+import axios from "axios";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const login = async () => {
+    const getProfileUser = async () => {
       try {
-        const response = await axios.post(
-          "http://localhost:8080/api/auth/login",
-          null,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        const response = await axios.get("http://localhost:8080/api/users/1", 
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
         setUser(response.data.data);
+        console.log(response.data.data);
       } catch (error) {
         console.error("Error:", error);
       }
     };
-
-    login();
+    getProfileUser();
   }, []);
 
+  console.log(user);
+
   return (
-    <div>
-      <h2>Welcome, {user.fullName}!</h2>
-      <p>Avatar: {user.profilePicture}</p>
-      <p>Username: {user.username}</p>
-      <p>Email: {user.email}</p>
-      <p>Role: {user.role}</p>
-      <p>Preferences: {user.preferences}</p>
-    </div>
+    <>
+      {user && (
+        <Space direction="vertical">
+          <h2>Welcome, {user.fullName}!</h2>
+          <p>Username: {user.username}</p>
+          <p>Email: {user.email}</p>
+          <p>Role: {user.role}</p>
+        </Space>
+      )}
+    </>
   );
 };
 

@@ -38,11 +38,11 @@ function App() {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   // const fullname = localStorage.getItem('fullName');
-  // useEffect(() => {
-  //   if (localStorage.getItem("token") === null) {
-  //     navigate("/login");
-  //   }
-  // });
+  useEffect(() => {
+    if (localStorage.getItem("token") === null) {
+      navigate("/login");
+    }
+  });
 
   const handleLogout = () => {
     localStorage.removeItem("token");

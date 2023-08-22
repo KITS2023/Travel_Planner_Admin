@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Button, Form, Input, Upload, Select, Space, message } from "antd";
+import { 
+  Button, Form, Input, 
+  Upload, Select, 
+  Space,
+   message 
+  } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import axios from "axios";
@@ -64,7 +69,7 @@ const RegisterForm = () => {
 
       const data = response.data;
       console.log(data);
-      localStorage.setItem('fullName', fullname);
+      localStorage.setItem("fullName", fullname);
 
       navigate("/login");
     } catch (error) {

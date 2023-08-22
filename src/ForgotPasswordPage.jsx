@@ -75,7 +75,7 @@ const ForgotPasswordPage = () => {
   return (
     <Form style={formStyle}>
       <Form.Item>
-        <h2>FORGOT PASSWORD2</h2>
+        <h2>FORGOT PASSWORD</h2>
       </Form.Item>
       <Form.Item>
         Enter your email or username and we will send you a link to reset your
