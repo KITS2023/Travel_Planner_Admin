@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 import axios from "axios";
 import "./DashboardStyle.css";
 
-const DemoColumn = () => {
+const ColumnChart = () => {
   const data = [
     {
       name: "Positive",
@@ -144,7 +144,8 @@ function Dashboard() {
         console.log("fetch data failed", error);
       });
   };
-  const config1 = DemoColumn();
+  
+  const config1 = ColumnChart();
   const config = {
     data,
     xField: "Date",
@@ -166,7 +167,7 @@ function Dashboard() {
         <h1>Statistics</h1>
         <Row gutter={20}>
           <Col xs={48} sm={24} md={12}>
-            <Card className="gutter-row">
+            <Card hoverable className="gutter-row">
               <Icon icon="fa-solid:users" color="gray" />
               <h4>Users</h4>
               <h2 className="up">2,000</h2>
@@ -182,7 +183,7 @@ function Dashboard() {
             </Card>
           </Col>
           <Col xs={48} sm={24} md={12}>
-            <Card className="gutter-row">
+            <Card hoverable className="gutter-row">
               <Icon icon="fa6-solid:comments" color="gray" />
               <h4>Comments</h4>
               <h2 className="down">20,000</h2>
@@ -203,11 +204,11 @@ function Dashboard() {
         <Row gutter={20}>
           <Col xs={48} sm={24} md={12}>
             <h1>Users</h1>
-            <Area {...config} className="area-chart" />
+            <Area {...config} className="chart" />
           </Col>
           <Col xs={48} sm={24} md={12}>
             <h1>Comments</h1>
-            <Column {...config1} className="column-chart" />
+            <Column {...config1} className="chart" />
           </Col>
         </Row>
       </div>

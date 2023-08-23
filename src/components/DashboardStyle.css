@@ -5,21 +5,20 @@
   padding-right: 2.4%;
   border-radius: 10px;
 }
+
 .dashboard-container > div {
   margin-bottom: 20px;
 }
+
 .calendar-container {
   margin-top: 10px;
 }
-.area-chart{
-  background-color: white;
+
+.chart {
+  background: white;
   padding: 2%;
   border-radius: 10px;
-}
-.column-chart{
-  background-color: white;
-  padding: 2%;
-  border-radius: 10px;
+  max-height: 40vh;
 }
 /* .gutter-row {
   background: white;

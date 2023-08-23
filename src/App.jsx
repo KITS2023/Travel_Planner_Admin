@@ -37,16 +37,14 @@ const { Header, Content, Footer, Sider } = Layout;
 function App() {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
-  // const fullname = localStorage.getItem('fullName');
-  // useEffect(() => {
-  //   if (localStorage.getItem("token") === null) {
-  //     navigate("/login");
-  //   }
-  // });
+  useEffect(() => {
+    if (localStorage.getItem("token") === null) {
+      navigate("/login");
+    }
+  });
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("fullName");
     navigate("/login");
   };
 
@@ -66,7 +64,7 @@ function App() {
       "sub0",
       <Icon icon="carbon:dashboard" />
     ),
-    getItem("Charts", "sub1", <PieChartOutlined />, [
+    getItem("Businesses", "sub1", <PieChartOutlined />, [
       getItem(<Link to="/flights">Flights</Link>, "1"),
       getItem(<Link to="/accomodations">Accomodations</Link>, "2"),
       getItem(<Link to="/activities">Activities</Link>, "3"),
@@ -79,7 +77,7 @@ function App() {
 
   const items = [
     {
-      label: <Link to="/profile">Profile</Link>,
+      label: <Link  to="/profile">Profile</Link>,
       key: "0",
     },
     {
@@ -123,19 +121,7 @@ function App() {
             </Link>
           </Space>
         </Header>
-        {/* {collapsed ? (
-          <></>
-        ) : (
-          <div className="avatar-sider-container">
-            <Avatar
-              size={50}
-              className="avatar-sider"
-              icon={<UserOutlined />}
-            ></Avatar>
-            <h3>{fullname}</h3>
-            <Button onClick={handleLogout}>Logout</Button>
-          </div>
-        )} */}
+        
         <Menu
           items={menuItems}
           theme="light"

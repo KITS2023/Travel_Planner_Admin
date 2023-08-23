@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
@@ -8,6 +8,13 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [navigate, token]);
 
   const handleLogin = async () => {
     try {
@@ -27,6 +34,7 @@ const LoginForm = () => {
       console.log(data);
       // localStorage.setItem('username', username);
       localStorage.setItem("token", data.token);
+      localStorage.setItem("currentUser", JSON.stringify(data.data));
       navigate("/");
     } catch (error) {
       console.error("Error during login:", error);

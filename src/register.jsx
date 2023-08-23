@@ -1,12 +1,6 @@
 import { useState } from "react";
-import { 
-  Button, Form, Input, 
-  Upload, Select, 
-  Space,
-   message 
-  } from "antd";
+import { Button, Form, Input, Space } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 const formItemLayout = {
@@ -42,9 +36,6 @@ const tailFormItemLayout = {
 
 const RegisterForm = () => {
   const navigate = useNavigate();
-  // const [form] = Form.useForm();
-  const [imageUrl, setImageUrl] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -77,36 +68,6 @@ const RegisterForm = () => {
     }
   };
 
-  const beforeUpload = (file) => {
-    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-    if (!isJpgOrPng) {
-      message.error("You can only upload JPG/PNG file!");
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error("Image must be smaller than 2MB!");
-    }
-    return isJpgOrPng && isLt2M;
-  };
-
-  const handleAvatarChange = (info) => {
-    if (info.file.status === "uploading") {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === "done") {
-      getBase64(info.file.originFileObj, (imageUrl) => {
-        setLoading(false);
-        setImageUrl(imageUrl);
-      });
-    }
-  };
-
-  const getBase64 = (img, callback) => {
-    const reader = new FileReader();
-    reader.addEventListener("load", () => callback(reader.result));
-    reader.readAsDataURL(img);
-  };
   const rootDivStyle = {
     display: "flex",
     justifyContent: "center",
@@ -122,8 +83,6 @@ const RegisterForm = () => {
     padding: 30,
   };
   const formTitleStyle = { textAlign: "center", marginBottom: "30px" };
-  const avatarStyle = { width: "100%" };
-  const uploadButtonStyle = { marginTop: 8 };
   const buttonsStyle = { textAlign: "center" };
   const resetButtonStyle = { width: "80px" };
   const signupButtonStyle = { width: "80px" };
@@ -133,7 +92,6 @@ const RegisterForm = () => {
     <div style={rootDivStyle}>
       <Form
         {...formItemLayout}
-        // form={form}
         name="register"
         onFinish={onFinish}
         style={formStyle}
@@ -209,7 +167,7 @@ const RegisterForm = () => {
           />
         </Form.Item>
 
-        {/* <Form.Item
+        <Form.Item
           name="confirm"
           label="Confirm Password"
           dependencies={["password"]}
@@ -232,38 +190,6 @@ const RegisterForm = () => {
           ]}
         >
           <Input.Password />
-        </Form.Item> */}
-
-        <Form.Item
-          name="preferences"
-          label="Preferences"
-          tooltip="What do you like?"
-        >
-          <Select mode="multiple" placeholder="Select preferences">
-            <Select.Option value="option1">Option 1</Select.Option>
-            <Select.Option value="option2">Option 2</Select.Option>
-            <Select.Option value="option3">Option 3</Select.Option>
-          </Select>
-        </Form.Item>
-
-        <Form.Item name="avatar" label="Avatar">
-          <Upload
-            name="avatar"
-            listType="picture-card"
-            className="avatar-uploader"
-            showUploadList={false}
-            beforeUpload={beforeUpload}
-            onChange={handleAvatarChange}
-          >
-            {imageUrl ? (
-              <img src={imageUrl} alt="avatar" style={avatarStyle} />
-            ) : (
-              <div>
-                {loading ? <LoadingOutlined /> : <PlusOutlined />}
-                <div style={uploadButtonStyle}>Upload</div>
-              </div>
-            )}
-          </Upload>
         </Form.Item>
 
         <Form.Item {...tailFormItemLayout} style={buttonsStyle}>
