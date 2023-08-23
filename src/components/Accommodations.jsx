@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Space, Table } from "antd";
 import axios from "axios";
 
-function Accomodations() {
+function Accommodations() {
   const [hotels, setHotels] = useState([]);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ function Accomodations() {
 
   return (
     <Space direction="vertical" style={tableContainerStyle}>
-      <h1>Accomodations</h1>
+      <h1>Accommodations</h1>
       <Table
         pagination={false}
         columns={columns}
@@ -80,4 +80,4 @@ function Accomodations() {
   );
 }
 
-export default Accomodations;
+export default Accommodations;

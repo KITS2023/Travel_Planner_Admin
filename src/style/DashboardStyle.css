@@ -33,19 +33,13 @@
 h1 {
   margin-bottom: 20px;
 }
-
+h2 {
+  color: #26a65b;
+}
 h4 {
   color: gray;
 }
 
 p {
   color: gray;
-}
-
-.up {
-  color: #26a65b;
-}
-
-.down {
-  color: #ef4836;
 }

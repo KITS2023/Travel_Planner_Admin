@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Image } from "antd";
 import { LeftOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react";
 
@@ -37,7 +37,7 @@ const ForgotPasswordPage = () => {
           },
         }
       );
-  
+
       const data = response.data;
       if (data.success) {
         setIsSubmitted(true);
@@ -71,11 +71,15 @@ const ForgotPasswordPage = () => {
 
   const submitButton = { width: "100%" };
   const backButton = { width: "100%" };
+  const logoStyle = { textAlign: "center" };
 
   return (
     <Form style={formStyle}>
+      <Form.Item style={logoStyle}>
+        <Image width={100} src="\logo.png" preview={false} />
+      </Form.Item>
       <Form.Item>
-        <h2>FORGOT PASSWORD</h2>
+        <h1>Reset Password</h1>
       </Form.Item>
       <Form.Item>
         Enter your email or username and we will send you a link to reset your

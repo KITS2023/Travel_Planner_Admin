@@ -25,9 +25,8 @@ import {
 import { Icon } from "@iconify/react";
 import Flights from "./components/Flights";
 import Activities from "./components/Activities";
-import Accomodations from "./components/Accomodations";
+import Accommodations from "./components/Accommodations";
 import Users from "./components/Users";
-import Comments from "./components/Comments";
 import Dashboard from "./components/Dashboard";
 import ProfilePage from "./components/Profile";
 import Destinations from "./components/Destinations";
@@ -38,11 +37,11 @@ const { Header, Content, Footer, Sider } = Layout;
 function App() {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
-  useEffect(() => {
-    if (localStorage.getItem("token") === null) {
-      navigate("/login");
-    }
-  });
+  // useEffect(() => {
+  //   if (localStorage.getItem("token") === null) {
+  //     navigate("/login");
+  //   }
+  // });
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -67,13 +66,12 @@ function App() {
     ),
     getItem("Businesses", "sub1", <PieChartOutlined />, [
       getItem(<Link to="/flights">Flights</Link>, "1"),
-      getItem(<Link to="/accomodations">Accomodations</Link>, "2"),
+      getItem(<Link to="/accommodations">Accommodations</Link>, "2"),
       getItem(<Link to="/activities">Activities</Link>, "3"),
       getItem(<Link to="/destinations">Destinations</Link>, "4"),
     ]),
     getItem("Management", "sub2", <AppstoreOutlined />, [
       getItem(<Link to="/users">Users</Link>, "5"),
-      getItem(<Link to="/comments">Comments</Link>, "6"),
     ]),
   ];
 
@@ -166,10 +164,9 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/flights" element={<Flights />} />
-            <Route path="/accomodations" element={<Accomodations />} />
+            <Route path="/accommodations" element={<Accommodations />} />
             <Route path="/activities" element={<Activities />} />
             <Route path="/users" element={<Users />} />
-            <Route path="/comments" element={<Comments />} />
             <Route path="/destinations" element={<Destinations />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

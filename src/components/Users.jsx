@@ -3,7 +3,7 @@ import { Table, Space, Tooltip } from "antd";
 import { MdDeleteForever } from "react-icons/md";
 import axios from "axios";
 
-function Users() {
+function Users({ userCount, setUserCount }) {
   const [users, setUsers] = useState([]);
 
   const handleDeleteUser = (userId) => {
@@ -15,6 +15,8 @@ function Users() {
       })
       .then((response) => {
         console.log("User deleted successfully", response);
+        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+        setUserCount(prevCount => prevCount - 1); 
       })
       .catch((error) => {
         console.log("Failed to delete user", error);
@@ -30,6 +32,7 @@ function Users() {
           },
         });
         setUsers(response.data.data);
+        setUserCount(response.data.data.length);
         console.log(response.data.data);
       } catch (error) {
         console.error("Error:", error);
@@ -88,7 +91,7 @@ function Users() {
 
   return (
     <Space direction="vertical" style={tableContainerStyle}>
-      <h1>User Management</h1>
+      <h1>User</h1>
       <Table
         // pagination={false}
         // pagination={{ showQuickJumper: true, total: 100 }}

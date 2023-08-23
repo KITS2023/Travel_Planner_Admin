@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Form, Input, Space } from "antd";
+import { Button, Form, Input, Space, Image } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -87,6 +87,7 @@ const RegisterForm = () => {
   const resetButtonStyle = { width: "80px" };
   const signupButtonStyle = { width: "80px" };
   const backToLoginStyle = { textAlign: "center" };
+  const logoStyle = { textAlign: "center" };
 
   return (
     <div style={rootDivStyle}>
@@ -97,8 +98,12 @@ const RegisterForm = () => {
         style={formStyle}
         scrollToFirstError
       >
+        <Form.Item style={logoStyle}>
+          <Image width={100} src="\logo.png" preview={false} />
+        </Form.Item>
+
         <Form.Item>
-          <h1 style={formTitleStyle}>CREATE ACCOUNT</h1>
+          <h1 style={formTitleStyle}>Create Account</h1>
         </Form.Item>
 
         <Form.Item

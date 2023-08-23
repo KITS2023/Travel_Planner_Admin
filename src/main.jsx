@@ -7,10 +7,9 @@ import LoginForm from "./Login";
 import RegisterForm from "./Register";
 import ForgotPasswordPage from "./ForgotPasswordPage";
 import Flights from "./components/Flights";
-import Accomodations from "./components/Accomodations";
+import Accommodations from "./components/Accommodations";
 import Activities from "./components/Activities";
 import Users from "./components/Users";
-import Comments from "./components/Comments";
 import Dashboard from "./components/Dashboard";
 import ProfilePage from "./components/Profile";
 import "./style/index.css";
@@ -24,15 +23,15 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard/>,
+        element: <Dashboard />,
       },
       {
         path: "flights",
         element: <Flights />,
       },
       {
-        path: "accomodations",
-        element: <Accomodations />,
+        path: "accommodations",
+        element: <Accommodations />,
       },
       {
         path: "activities",
@@ -41,10 +40,6 @@ const router = createBrowserRouter([
       {
         path: "users",
         element: <Users />,
-      },
-      {
-        path: "comments",
-        element: <Comments />,
       },
       {
         path: "profile",
@@ -72,6 +67,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
-    <RouterProvider router={router} />
+  <RouterProvider router={router} />
   // </React.StrictMode>
 );

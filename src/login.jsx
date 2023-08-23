@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, Image } from "antd";
 import axios from "axios";
 
 const LoginForm = () => {
@@ -56,7 +56,7 @@ const LoginForm = () => {
   const forgotLinkStyle = { float: "right" };
   const loginButtonStyle = { width: "100%" };
   const signupLinkStyle = { textAlign: "center" };
-
+  const logoStyle = { textAlign: "center" };
   return (
     <Form
       name="normal_login"
@@ -66,8 +66,11 @@ const LoginForm = () => {
         remember: true,
       }}
     >
+      <Form.Item style={logoStyle}>
+        <Image width={100} src="\logo.png" preview={false} />
+      </Form.Item>
       <Form.Item style={formTitleStyle}>
-        <h1>USER LOGIN</h1>
+        <h1>User Login</h1>
       </Form.Item>
       <Form.Item
         name="username"
