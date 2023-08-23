@@ -65,7 +65,7 @@ function Flights() {
     }
   ];
   const tableContainerStyle = {
-    width: "50%",
+    width: "100%",
   };
 
   return (

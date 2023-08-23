@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import ErrorPage from "./ErrorPage";
-import LoginForm from "./login";
-import RegisterForm from "./register";
+import LoginForm from "./Login";
+import RegisterForm from "./Register";
 import ForgotPasswordPage from "./ForgotPasswordPage";
 import Flights from "./components/Flights";
 import Accomodations from "./components/Accomodations";
@@ -13,7 +13,8 @@ import Users from "./components/Users";
 import Comments from "./components/Comments";
 import Dashboard from "./components/Dashboard";
 import ProfilePage from "./components/Profile";
-import "./index.css";
+import "./style/index.css";
+import Destinations from "./components/Destinations";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <ProfilePage />,
+      },
+      {
+        path: "destinations",
+        element: <Destinations />,
       },
     ],
   },

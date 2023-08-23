@@ -3,7 +3,7 @@ import { Space, Calendar, Col, Row, Card } from "antd";
 import { Area, Column } from "@ant-design/plots";
 import { Icon } from "@iconify/react";
 import axios from "axios";
-import "./DashboardStyle.css";
+import "../style/DashboardStyle.css";
 
 const ColumnChart = () => {
   const data = [
@@ -94,7 +94,7 @@ const ColumnChart = () => {
     xField: "month",
     yField: "amount",
     seriesField: "name",
-    color: ['#26a65b', '#ef4836'],
+    color: ["#26a65b", "#ef4836"],
     label: {
       position: "middle",
       layout: [
@@ -144,7 +144,7 @@ function Dashboard() {
         console.log("fetch data failed", error);
       });
   };
-  
+
   const config1 = ColumnChart();
   const config = {
     data,

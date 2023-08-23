@@ -30,7 +30,8 @@ import Users from "./components/Users";
 import Comments from "./components/Comments";
 import Dashboard from "./components/Dashboard";
 import ProfilePage from "./components/Profile";
-import "./App.css";
+import Destinations from "./components/Destinations";
+import "./style/App.css";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -68,21 +69,18 @@ function App() {
       getItem(<Link to="/flights">Flights</Link>, "1"),
       getItem(<Link to="/accomodations">Accomodations</Link>, "2"),
       getItem(<Link to="/activities">Activities</Link>, "3"),
+      getItem(<Link to="/destinations">Destinations</Link>, "4"),
     ]),
     getItem("Management", "sub2", <AppstoreOutlined />, [
-      getItem(<Link to="/users">Users</Link>, "4"),
-      getItem(<Link to="/comments">Comments</Link>, "5"),
+      getItem(<Link to="/users">Users</Link>, "5"),
+      getItem(<Link to="/comments">Comments</Link>, "6"),
     ]),
   ];
 
   const items = [
     {
-      label: <Link  to="/profile">Profile</Link>,
+      label: <Link to="/profile">Profile</Link>,
       key: "0",
-    },
-    {
-      label: <a href="">Settings</a>,
-      key: "1",
     },
     {
       type: "divider",
@@ -121,7 +119,7 @@ function App() {
             </Link>
           </Space>
         </Header>
-        
+
         <Menu
           items={menuItems}
           theme="light"
@@ -172,6 +170,7 @@ function App() {
             <Route path="/activities" element={<Activities />} />
             <Route path="/users" element={<Users />} />
             <Route path="/comments" element={<Comments />} />
+            <Route path="/destinations" element={<Destinations />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </Content>

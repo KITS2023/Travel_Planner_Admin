@@ -1,44 +1,10 @@
 import { useEffect, useState } from "react";
-import { Table, Space, Tooltip, Input, Button } from "antd";
-import { MdDeleteForever, MdUpdate } from "react-icons/md";
+import { Table, Space, Tooltip } from "antd";
+import { MdDeleteForever } from "react-icons/md";
 import axios from "axios";
 
 function Users() {
   const [users, setUsers] = useState([]);
-  const [editingUserId, setEditingUserId] = useState(null);
-  const [updatedUserFields, setUpdatedUserFields] = useState({});
-
-  const handleInputChange = (event, userId) => {
-    const { name, value } = event.target;
-    setUpdatedUserFields((prevUpdatedUserFields) => ({
-      ...prevUpdatedUserFields,
-      [userId]: {
-        ...prevUpdatedUserFields[userId],
-        [name]: value,
-      },
-    }));
-  };
-
-  const handleUpdateUser = (userId) => {
-    axios
-      .put(
-        `http://localhost:8080/api/users/${userId}`,
-        updatedUserFields[userId],
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then((response) => {
-        console.log("User updated successfully", response);
-        setEditingUserId(null);
-        setUpdatedUserFields({});
-      })
-      .catch((error) => {
-        console.log("Failed to update user", error);
-      });
-  };
 
   const handleDeleteUser = (userId) => {
     axios
@@ -82,46 +48,16 @@ function Users() {
       title: "Full Name",
       dataIndex: "fullName",
       key: "fullname",
-      render: (text, record) =>
-        editingUserId === record.id ? (
-          <Input
-            name="fullName"
-            value={updatedUserFields[record.id]?.fullName || text}
-            onChange={(event) => handleInputChange(event, record.id)}
-          />
-        ) : (
-          text
-        ),
     },
     {
       title: "Username",
       dataIndex: "username",
       key: "username",
-      render: (text, record) =>
-        editingUserId === record.id ? (
-          <Input
-            name="username"
-            value={updatedUserFields[record.id]?.username || text}
-            onChange={(event) => handleInputChange(event, record.id)}
-          />
-        ) : (
-          text
-        ),
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      render: (text, record) =>
-        editingUserId === record.id ? (
-          <Input
-            name="email"
-            value={updatedUserFields[record.id]?.email || text}
-            onChange={(event) => handleInputChange(event, record.id)}
-          />
-        ) : (
-          text
-        ),
     },
     {
       title: "Role",
@@ -131,39 +67,31 @@ function Users() {
     {
       title: "Action",
       key: "action",
-      render: (text, record) =>
-        editingUserId === record.id ? (
-          <>
-            <Button type="primary" onClick={() => handleUpdateUser(record.id)}>
-              Save
-            </Button>{" "}
-            <Button onClick={() => setEditingUserId(null)}>Cancel</Button>
-          </>
-        ) : (
-          <Space size="middle">
-            <Tooltip title="Update">
-              <a onClick={() => setEditingUserId(record.id)}>
-                <MdUpdate />
-              </a>
-            </Tooltip>
-            <Tooltip title="Delete">
-              <a onClick={() => handleDeleteUser(record.id)}>
-                <MdDeleteForever />
-              </a>
-            </Tooltip>
-          </Space>
-        ),
+      render: (record) => (
+        <Space size="middle">
+          <Tooltip title="Delete">
+            <a onClick={() => handleDeleteUser(record.id)}>
+              <MdDeleteForever style={deleteButtonStyle} />
+            </a>
+          </Tooltip>
+        </Space>
+      ),
     },
   ];
+  const deleteButtonStyle = {
+    width: "20px",
+    height: "20px",
+  };
   const tableContainerStyle = {
-    width: "50%",
+    width: "100%",
   };
 
   return (
     <Space direction="vertical" style={tableContainerStyle}>
       <h1>User Management</h1>
       <Table
-        pagination={false}
+        // pagination={false}
+        // pagination={{ showQuickJumper: true, total: 100 }}
         columns={columns}
         dataSource={users}
         rowKey="id"
