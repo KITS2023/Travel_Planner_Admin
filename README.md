@@ -1,9 +1,26 @@
-# React + Vite
+Step 1: Clone project
+<ul>
+ <li>git clone https://github.com/KITS2023/Travel_Planner_ADMIN.git</li>
+</ul>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Step 2: Install dependence and run
+<ul>
+    <li>npm i OR yarn</li>
+    <li>npm run build OR yarn build</li>
+    <li>npm run preview OR yarn preview</li>
+</ul>
 
-Currently, two official plugins are available:
+Step 3: Run and explore app
+<br />
+Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# Travel_Planner_Admin
+
+<br /><br /><br />
+
+****************************************************************
+Deme theme
+<img href="" />
+****************************************************************
+
+
+
